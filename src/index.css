@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ═══════════════════════════════════════════════════
+ * "Nuestro día" — Estilos globales
+ * ═══════════════════════════════════════════════════
+ */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-linen-50 text-linen-900 font-body;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* Selección de texto */
+  ::selection {
+    background-color: rgba(200, 169, 110, 0.2);
+  }
+
+  /* Scrollbar sutil */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(180, 170, 155, 0.3);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* Animación de shake para código incorrecto */
+  .animate-shake {
+    animation: shake 0.4s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+}
+
+/*
+ * Respeto por prefers-reduced-motion.
+ * Reduce todas las animaciones a transiciones mínimas.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Safe area para dispositivos con notch (iPhone etc.)
+ */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
